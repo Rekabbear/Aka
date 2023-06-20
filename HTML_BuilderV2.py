@@ -26,19 +26,13 @@ PathVar = tk.StringVar(root)
 
 ProjectVar = tk.StringVar(root)
 # Export Text File
-def File():
+def File(event):
     Path = PathVar.get()
     Path = Path.replace('github','raw.githubusercontent')
     Path = Path.replace('/blob/','/')
 
     Project = ProjectVar.get()
 
-    #DirName=tkFileDialog.askdirectory(parent=root, initialdir="/", title='Select File Location')
-    #if len(DirName) == 0:
-        #DirName = os.path.dirname(__file__)
-        #DirectoryCheck = os.path.exists(''.join([os.path.dirname(__file__),"\\HTML\\"]))
-        #if not DirectoryCheck:
-         #   os.makedirs(''.join([os.path.dirname(__file__),"\\HTML\\"]))
     Name = NameVar.get()
     FileName = ''.join([Folder,"\\", Name, ".html"])
     Txt = open(FileName,'w')
@@ -117,6 +111,7 @@ def Browsing(event):
     global Folder
     Folder = tkDia.askdirectory()
     FolderEntry["text"] = Folder
+    
 # Add Buttons & Labels
 #region
 
@@ -124,10 +119,13 @@ BrowseButton = tk.Button(root, text = BrowseText, command = Browsing)
 BrowseButton["width"] = "12"
 BrowseButton.grid(row=3, column=2, sticky="w")
 BrowseButton.bind('<Return>', Browsing)
+BrowseButton.bind('<ButtonRelease-1>', Browsing)
 
-FileButton = tk.Button(root, text = ButtonText, command = File)
+FileButton = tk.Button(root, text = ButtonText)
 FileButton["width"] = "12"
 FileButton.grid(row=4, column=0)
+FileButton.bind('<Return>', File)
+FileButton.bind('<Button-1>', File)
 
 PathEntry = tk.Entry(root)
 PathEntry["textvariable"] = PathVar
