@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+        <html lang="en">
+          <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <meta http-equiv="X-UA-Compatible" content="ie=edge">
+		Access-Control-Allow-Origin: <origin>				
+                
+                <title>Sanno 3D-viewer</title>
+          </head>
+          <body>
+                <img src="Sanno3D.png" alt="SANNO GROUP" height="100">
+                <p>Project: Akachan Hirodai</p>
+                <br>
+                
+                <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.1.1/model-viewer.min.js"></script>
+                <style>
+                        model-viewer {
+                                width: 1000px;
+                                height: 1000px;
+                        }
+                </style>
+                <model-viewer 
+                        id="model-viewer"
+                        alt="Akachan Hirodai" 
+                        src="AkaHiro.glb"
+                        ios-src="AkaHiro.usdz"
+                        shadow-intensity="1" 
+                        ar ar-modes="scene-viewer webxr"
+                        camera-controls touch-action="pan-y">                
+
+                        <button slot="ar-button" style="background-color: white; border-radius: 5px; border: solid; position: absolute; top: 16px; left: 16px; ">
+                                View in AR
+                        </button>
+                        
+                </model-viewer>
+                <script>
+                        document.querySelector("#model-viewer").addEventListener('ar-status', (event) => {
+                                if(event.detail.status === 'failed'){
+                                        const error = document.querySelector("#error");
+                                        error.classList.remove('hide');
+                                        error.addEventListener('transitionend',(event) => {
+                                                error.classList.add('hide');
+                                        });
+                                }
+                        });
+                </script>                
+          </body>
+        </html>
